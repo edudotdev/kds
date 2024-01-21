@@ -22,10 +22,6 @@ const paths = [
 
 export const Nav = () => {
   const orders = useAppSelector(state => state.orders)
-  const activeOrders = orders.filter((order) => order.status === 'active');
-  const completedOrders = orders.filter((order) => order.status === 'completed');
-  const canceledOrders = orders.filter((order) => order.status === 'canceled');
-
 
   return (
     <header className='sticky top-0 flex justify-between items-center border-b border-slate-200 px-10 h-20 bg-white z-50'>
