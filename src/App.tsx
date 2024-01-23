@@ -1,6 +1,6 @@
-import { Nav, Footer, ModalNewOrder } from './components'
+import { Nav, Footer } from './components'
 import { Route, Routes} from 'react-router-dom'
-import { Home, Active, Completed, Canceled } from './app'
+import { Home, Cooking, Completed, Canceled, Queue } from './app'
 
 function App() {
 
@@ -9,11 +9,11 @@ function App() {
       <Nav />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/active' element={<Active />} />
+        <Route path='/queue' element={<Queue />} />
+        <Route path='/cooking' element={<Cooking />} />
         <Route path='/completed' element={<Completed />} />
         <Route path='/canceled' element={<Canceled />} />
       </Routes>
-      <ModalNewOrder />
       <Footer />
     </div>
   )

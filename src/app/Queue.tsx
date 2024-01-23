@@ -1,20 +1,20 @@
-import { ListChecks } from 'phosphor-react';
+import { ListBullets } from 'phosphor-react';
 import { Order } from '../components'
 import { EmptyState, GridOrders } from '../components/ui';
 import { useAppSelector } from '../hooks/store'
 
-export const Completed = () => {
+export const Queue = () => {
   const orders = useAppSelector(state => state.orders)
-  const completedOrders = orders.filter((order) => order.status === 'completed');
+  const queueOrders = orders.filter((order) => order.status === 'queue');
 
-  return completedOrders.length === 0 ? 
-  <EmptyState text='No completed orders'>
-    <ListChecks size={150} weight="bold" />
-  </EmptyState> 
+  return queueOrders.length === 0 ?
+  <EmptyState text='No queue orders'>
+    <ListBullets size={150} weight="bold" />
+  </EmptyState>
   : (
     <GridOrders>
       <>
-        {completedOrders.map(order => (
+        {queueOrders.map(order => (
           <Order
             key={order.id}
             order={order}

@@ -1,17 +1,25 @@
+import { CalendarCheck } from 'phosphor-react'
 import { Order } from '../components'
+import { EmptyState, GridOrders } from '../components/ui'
 import { useAppSelector } from '../hooks/store'
 
 export const Home = () => {
   const orders = useAppSelector(state => state.orders)
 
-  return (
-    <div className='grid grid-cols-4 gap-5 m-10'>
-      {orders.map(order => (
-        <Order
-          key={order.id}
-          order={order}
-        />
-      ))}
-    </div>
+  return orders.length === 0 ? 
+  <EmptyState text='No orders today'>
+    <CalendarCheck size={150} weight="bold" />
+  </EmptyState> 
+  : (
+    <GridOrders>
+      <>
+        {orders.map(order => (
+          <Order
+            key={order.id}
+            order={order}
+          />
+        ))}
+      </>
+    </GridOrders>
   )
 }

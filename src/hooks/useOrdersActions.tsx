@@ -1,5 +1,6 @@
 import { useAppDispatch } from "./store"
-import { Order, deleteUserByID, addNewOrder, changeToCompleted, changeToCanceled } from "../store/orders/slice"
+import { Order, deleteOrderByID, addNewOrder, changeStatusOrder } from "../store/orders/slice"
+import { Status } from '../store/orders/slice'
 
 export const useOrdersActions = () => {
   const dispatch = useAppDispatch()
@@ -8,17 +9,13 @@ export const useOrdersActions = () => {
     dispatch(addNewOrder(order))
   }
 
-  const changeCompleted = (id: string) => {
-    dispatch(changeToCompleted(id))
-  }
-
-  const changeCanceled = (id: string) => {
-    dispatch(changeToCanceled(id))
+  const changeStatus = (order: {id: string, status: Status}) => {
+    dispatch(changeStatusOrder(order))
   }
 
   const removeOrder = (id: string) => {
-    dispatch(deleteUserByID(id))
+    dispatch(deleteOrderByID(id))
   }
 
-  return { addOrder, removeOrder, changeCompleted, changeCanceled }
+  return { addOrder, removeOrder, changeStatus}
 }

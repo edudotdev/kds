@@ -12,7 +12,7 @@ export interface Product {
   quantity: number
 }
 
-type Status = 'active' | 'completed' | 'canceled'
+export type Status = 'cooking' | 'completed' | 'canceled' | 'queue'
 
 export const formateHour = ( date:Date ) => {
   const hours = date.getHours();
@@ -20,42 +20,9 @@ export const formateHour = ( date:Date ) => {
   return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`
 }
 
-const defaultState: Order[] = [
-  {
-    id: crypto.randomUUID(),
-    products: [
-      {
-        name: 'Hamberger',
-        quantity: 1
-      },
-      {
-        name: 'papas',
-        quantity: 1
-      },
-    ],
-    status: 'active',
-    date: formateHour(new Date())
-  },
-  {
-    id: crypto.randomUUID(),
-    products: [
-      {
-        name: 'Pizza',
-        quantity: 1
-      },
-      {
-        name: 'Soda',
-        quantity: 2
-      },
-    ],
-    status: 'completed',
-    date: formateHour(new Date())
-  }
-]
-
 const initialState: Order[] = (() => {
   const localData = localStorage.getItem('__redux__state__')
-  return localData ? JSON.parse(localData).orders : defaultState 
+  return localData ? JSON.parse(localData).orders : [] 
 })()
 
 export const ordersSlice = createSlice({
@@ -65,13 +32,13 @@ export const ordersSlice = createSlice({
     addNewOrder: (state, action: PayloadAction<Order>) => {
       return [...state, {...action.payload}]
     },
-    changeToCompleted:(state, action: PayloadAction<string>) => {
-      const id = action.payload
+    changeStatusOrder:(state, action: PayloadAction<{id: string, status: Status}>) => {
+      const {id, status} = action.payload
       const updatedOrders = state.map((order) => {
         if (order.id === id) {
           return {
             ...order,
-            status: 'completed',
+            status: status,
           }
         }
 
@@ -80,30 +47,14 @@ export const ordersSlice = createSlice({
 
       return updatedOrders as any;
     },
-    changeToCanceled:(state, action: PayloadAction<string>) => {
-      const id = action.payload
-      const updatedOrders = state.map((order) => {
-        if (order.id === id) {
-          return {
-            ...order,
-            status: 'canceled',
-          }
-        }
-
-        return order;
-      });
-
-      return updatedOrders as any;
-    },
-    deleteUserByID: (state, action: PayloadAction<string>) => {
+    deleteOrderByID: (state, action: PayloadAction<string>) => {
       const id = action.payload
       return state.filter(user => user.id !== id)
     },
-    
   }
 })
 
 
 export default ordersSlice.reducer
 
-export const { addNewOrder, deleteUserByID, changeToCompleted, changeToCanceled } = ordersSlice.actions
+export const { addNewOrder, deleteOrderByID, changeStatusOrder } = ordersSlice.actions

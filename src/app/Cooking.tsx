@@ -1,20 +1,20 @@
-import { ListChecks } from 'phosphor-react';
+import { CookingPot } from 'phosphor-react';
 import { Order } from '../components'
 import { EmptyState, GridOrders } from '../components/ui';
 import { useAppSelector } from '../hooks/store'
 
-export const Completed = () => {
+export const Cooking = () => {
   const orders = useAppSelector(state => state.orders)
-  const completedOrders = orders.filter((order) => order.status === 'completed');
+  const cookingOrders = orders.filter((order) => order.status === 'cooking');
 
-  return completedOrders.length === 0 ? 
-  <EmptyState text='No completed orders'>
-    <ListChecks size={150} weight="bold" />
-  </EmptyState> 
-  : (
+  return cookingOrders.length === 0 ?
+  <EmptyState text='No cooking orders'>
+    <CookingPot size={150} weight="bold" />
+  </EmptyState>
+  :(
     <GridOrders>
       <>
-        {completedOrders.map(order => (
+        {cookingOrders.map(order => (
           <Order
             key={order.id}
             order={order}
