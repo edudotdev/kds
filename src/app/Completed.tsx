@@ -5,7 +5,7 @@ import { useAppSelector } from '../hooks/store'
 
 export const Completed = () => {
   const orders = useAppSelector(state => state.orders)
-  const completedOrders = orders.filter((order) => order.status === 'completed');
+  const completedOrders = orders.filter((order) => order.status === 'completed') || [];
 
   return completedOrders.length === 0 ? 
   <EmptyState text='No completed orders'>

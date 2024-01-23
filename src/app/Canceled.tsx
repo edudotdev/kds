@@ -6,7 +6,7 @@ import { Receipt } from 'phosphor-react'
 
 export const Canceled = () => {
   const orders = useAppSelector(state => state.orders)
-  const canceledOrders = orders.filter((order) => order.status === 'canceled');
+  const canceledOrders = orders.filter((order) => order.status === 'canceled') || [];
 
   return canceledOrders.length === 0 ? 
     <EmptyState text='No canceled orders'>

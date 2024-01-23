@@ -5,7 +5,7 @@ import { useAppSelector } from '../hooks/store'
 
 export const Cooking = () => {
   const orders = useAppSelector(state => state.orders)
-  const cookingOrders = orders.filter((order) => order.status === 'cooking');
+  const cookingOrders = orders.filter((order) => order.status === 'cooking') || [];
 
   return cookingOrders.length === 0 ?
   <EmptyState text='No cooking orders'>

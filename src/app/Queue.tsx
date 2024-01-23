@@ -5,7 +5,7 @@ import { useAppSelector } from '../hooks/store'
 
 export const Queue = () => {
   const orders = useAppSelector(state => state.orders)
-  const queueOrders = orders.filter((order) => order.status === 'queue');
+  const queueOrders = orders.filter((order) => order.status === 'queue') || [];
 
   return queueOrders.length === 0 ?
   <EmptyState text='No queue orders'>
